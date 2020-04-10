@@ -1,0 +1,20 @@
+--- LOG ---
+
+Level 1 encryption start: 10/04/2020 - 00:08:58:1586495338598
+Level 1 encryption finish: 10/04/2020 - 00:08:581586495338599
+
+Level 2 encryption start: 10/04/2020 - 00:08:58
+Level 2 encryption finish: 10/04/2020 - 00:08:58
+
+Level 3 encryption start: 10/04/2020 - 00:08:58
+Level 3 encryption finish: 10/04/2020 - 00:08:58
+
+Level 4 encryption start: 10/04/2020 - 00:08:58
+Level 4 encryption finish: 10/04/2020 - 00:08:58
+
+Level 5 encryption start: 10/04/2020 - 00:08:58
+Level 5 encryption finish: 10/04/2020 - 00:08:58
+
+Level 6 encryption start: 10/04/2020 - 00:08:58
+Level 6 encryption finish: 10/04/2020 - 00:08:58
+
