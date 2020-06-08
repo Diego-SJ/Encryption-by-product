@@ -5,28 +5,31 @@ from datetime import datetime
 import util_general as ug
 import util_methods as um
 import time
+from timeit import timeit
 os.system('clear')
 
 # * ================================== *
 # *    VERIFY THE ENCRYPTION METHOD    *
 # * ================================== *
-def decriptMenu(level,text,cesarKey,monoKeySize,monoKey,block,padding):
+def encriptMenu(level,text,cesarKey,monoKeySize,monoKey,block,padding):
+
     alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
+
     if cesarKey != '':
         cesarKey = int(cesarKey) % len(alphabet)
-    decryptedText = ''
+    encryptedText = ''
+
     if level == 'cesar':
-        decryptedText = um.cesarMethodDec(text,cesarKey)
+        encryptedText = um.cesarMethod(text,cesarKey)
     elif level == 'mono':
-        decryptedText = um.monoMethodDec(text,monoKeySize,monoKey)
+        encryptedText = um.monoMethod(text,monoKeySize,monoKey)
     elif level == 'trans':
-        decryptedText = um.transMethodDec(text,block,padding)
+        encryptedText = um.transMethod(text,block,padding)
     else:
-        print('WARNING! Invalid encryption method.')
+        print('*** WARNING! Invalid encryption method.')
         return False
 
-    return decryptedText
-
+    return encryptedText
 
 # * ================================== *
 # *      READING CONFIGURATION FILE    *
@@ -46,7 +49,7 @@ def main():
         print('\n\n\n\n\n\n========================\nReading configFile.txt...\n')
         for variables in configFile:
 
-            v1 = re.match(r".*~# architecture levels = (\d*)",variables)
+            v1 = re.match(r".*architecture levels = (\d*)",variables)
             if v1: architectureLevels = int(v1.group(1))
 
             # * LEVEL 1
@@ -301,40 +304,48 @@ def main():
                 else:
                     exit()
 
-    print('\n\nDECRIPTING...\n')
-    cipherText = ug.readSimpleFile('cipherText.txt')
-
-    finalPlainText = ''
-    if architectureLevels >= 1 and architectureLevels <= 6:
+    print('\n\nENCRIPTING...\n\n')
+    cleanText = ug.createCleanText('./texts/plainText.txt')
+    textLog = '\t\t\t--- ENCRYPTION LOG ---\n\n'
+    finalEncryptedText = ''
+    if architectureLevels > 1 and architectureLevels <= 6:
         if level1 != '' and level2 != '':
-            if len(level6) > 0 and level6 != '' and architectureLevels == 6:
-                finalPlainText = decriptMenu(level6,cipherText,level6ck,level6mks,level6mk,level6tk,level6tp)
-                ug.createDecipherFile('level6',finalPlainText)
-            else:
-                finalPlainText = cipherText
-            if len(level5) > 0 and level5 != '' and architectureLevels >= 5:
-                finalPlainText = decriptMenu(level5,finalPlainText,level5ck,level5mks,level5mk,level5tk,level5tp)
-                ug.createDecipherFile('level5',finalPlainText)
-            else:
-                finalPlainText = cipherText
-            if len(level4) > 0 and level4 != '' and architectureLevels >= 4:
-                finalPlainText = decriptMenu(level4,finalPlainText,level4ck,level4mks,level4mk,level4tk,level4tp)
-                ug.createDecipherFile('level4',finalPlainText)
-            else:
-                finalPlainText = cipherText
+
+            textLog += 'Level 1 start time : {}\n'.format(ug.checkPoint())
+            finalEncryptedText = encriptMenu(level1,cleanText,level1ck,level1mks,level1mk,level1tk,level1tp)
+            textLog += 'Level 1 ending time: {}\n\n'.format(ug.checkPoint())
+            ug.createCipherFile('level1',finalEncryptedText)
+
+            textLog += 'Level 2 start time : {}\n'.format(ug.checkPoint())
+            finalEncryptedText = encriptMenu(level2,finalEncryptedText,level2ck,level2mks,level2mk,level2tk,level2tp)
+            textLog += 'Level 2 ending time: {}\n\n'.format(ug.checkPoint())
+            ug.createCipherFile('level2',finalEncryptedText)
             if len(level3) > 0 and level3 != '' and architectureLevels >= 3:
-                finalPlainText = decriptMenu(level3,finalPlainText,level3ck,level3mks,level3mk,level3tk,level3tp)
-                ug.createDecipherFile('level3',finalPlainText)
-            else:
-                finalPlainText = cipherText
-            finalPlainText = decriptMenu(level2,finalPlainText,level2ck,level2mks,level2mk,level2tk,level2tp)
-            ug.createDecipherFile('level2',finalPlainText)
-            finalPlainText = decriptMenu(level1,finalPlainText,level1ck,level1mks,level1mk,level1tk,level1tp)
-            ug.createDecipherFile('level1',finalPlainText)
+                textLog += 'Level 3 start time : {}\n'.format(ug.checkPoint())
+                finalEncryptedText = encriptMenu(level3,finalEncryptedText,level3ck,level3mks,level3mk,level3tk,level3tp)
+                textLog += 'Level 3 ending time: {}\n\n'.format(ug.checkPoint())
+                ug.createCipherFile('level3',finalEncryptedText)
+            if len(level4) > 0 and level4 != '' and architectureLevels >= 4:
+                textLog += 'Level 4 start time : {}\n'.format(ug.checkPoint())
+                finalEncryptedText = encriptMenu(level4,finalEncryptedText,level4ck,level4mks,level4mk,level4tk,level4tp)
+                textLog += 'Level 4 ending time: {}\n\n'.format(ug.checkPoint())
+                ug.createCipherFile('level4',finalEncryptedText)
+            if len(level5) > 0 and level5 != '' and architectureLevels >= 5:
+                textLog += 'Level 5 start time : {}\n'.format(ug.checkPoint())
+                finalEncryptedText = encriptMenu(level5,finalEncryptedText,level5ck,level5mks,level5mk,level5tk,level5tp)
+                textLog += 'Level 5 ending time: {}\n\n'.format(ug.checkPoint())
+                ug.createCipherFile('level5',finalEncryptedText)
+            if len(level6) > 0 and level6 != '' and architectureLevels == 6:
+                textLog += 'Level 6 start time : {}\n'.format(ug.checkPoint())
+                finalEncryptedText = encriptMenu(level6,finalEncryptedText,level6ck,level6mks,level6mk,level6tk,level6tp)
+                textLog += 'Level 6 ending time: {}\n\n'.format(ug.checkPoint())
+                ug.createCipherFile('level6',finalEncryptedText)
 
             print('\n\n*** SUCCESSFUL PROCESS!\n\n')
 
-            ug.createSimpleFile('decipherText.txt',finalPlainText.replace(',',' '))
+            ug.createSimpleFile('./texts/cipherText.txt',finalEncryptedText)
+            ug.createSimpleFile('./logs/EncryptionLOG.txt',textLog)
+
         else:
             print('*** WARNING! Level 1 and 2 are required.')
     else:

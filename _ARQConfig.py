@@ -49,7 +49,7 @@ def createConfigFile(numLevels):
                     flag += 1
                 elif lev == 2:
                     while inUser ==  False:
-                        sizeKeyMono = input('Key size (27 or 37): ')
+                        sizeKeyMono = input('   Key size (27 or 37): ')
                         if sizeKeyMono == '27' or sizeKeyMono == '37':
                             ctf += '\n~# level '+str(flag)+' mono size key = ' + sizeKeyMono
                             ctf += '\n~# level '+str(flag)+' mono key = ?\n\n'
@@ -59,7 +59,7 @@ def createConfigFile(numLevels):
                             print('*** WARNING! The key size must be 27 or 37')
                 elif lev == 3:
                     while inUser ==  False:
-                        paddingTrans = input('Padding [a-z]: ')
+                        paddingTrans = input('  Padding [a-z]: ')
                         if paddingValidate(paddingTrans):
                             ctf += '\n~# level '+str(flag)+' trans padding = ' + paddingTrans
                             ctf += '\n~# level '+str(flag)+' trans key = ?\n\n'

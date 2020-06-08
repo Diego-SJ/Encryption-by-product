@@ -3,11 +3,22 @@
 Created on Wed Apr 1 2020
 @author: Diego Salas
 """
-import matplotlib.pyplot as mpl
 from io import open
+from timeit import timeit
+from datetime import datetime, date, time, timedelta
+import calendar
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as mpl
 
 # ! CREATE FILE
 def createSimpleFile(name,content):
+    outputFile = open(name,'w')
+    outputFile.write(content)
+    outputFile.close()
+
+# ! CREATE FILE WITH RUTE
+def createSimpleFileRute(name,content):
     outputFile = open(name,'w')
     outputFile.write(content)
     outputFile.close()
@@ -139,9 +150,27 @@ def createHistogram(plainText,title):
     aLabels = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9']
     num = [A,B,C,D,E,F,G,H,I,J,K,L,M,N,Ñ,O,P,Q,R,S,T,U,V,W,X,Y,Z,one,two,three,four,five,six,seven,eigth,nine,ten]
     xx  = range(len(num))
-    axis.bar(xx,num,width=0.5,align='center')
+    rects1 = axis.bar(xx,num,width=0.5,color = 'y',align='center')
     axis.set_xticks(xx)
     axis.set_xticklabels(aLabels)
     mpl.xlabel("Cipher Text")
     mpl.ylabel("Absolute Frecuency")
+
+    def autolabel(rects):
+        for rect in rects:
+            height = rect.get_height()
+            axis.text(rect.get_x() + rect.get_width()/2., 1.05*height,
+                    '%d' % int(height),
+                    ha='center', va='bottom')
+
+    autolabel(rects1)
     mpl.show()
+
+
+# ! EXECUTION TIME
+def checkPoint():
+    now = datetime.now()
+    # currenTime = time(now.hour, now.minute, microseconds)
+    # timeLap = currenTime - timedelta(seconds=microseconds)
+    currenTime = str("%s" % now)
+    return currenTime

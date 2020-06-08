@@ -1,0 +1,11 @@
+			--- ENCRYPTION LOG ---
+
+Level 1 start time : 2020-04-21 20:49:28.116045
+Level 1 ending time: 2020-04-21 20:49:28.116160
+
+Level 2 start time : 2020-04-21 20:49:34.630570
+Level 2 ending time: 2020-04-21 20:49:34.630683
+
+Level 3 start time : 2020-04-21 20:49:36.604595
+Level 3 ending time: 2020-04-21 20:49:36.605320
+
